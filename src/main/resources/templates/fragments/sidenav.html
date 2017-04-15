@@ -1,0 +1,12 @@
+<html>
+<body>
+	<div class="col-sm-2 sidenav" th:fragment="sidenav">
+		<h3>List of Process</h3>
+		<p th:each="proc : ${proclist}">
+			Start - <a th:href="@{startProcess(processDefinitionId=${proc.id})}"
+				th:text="${proc.name}"></a>
+		</p>
+
+	</div>
+</body>
+</html>

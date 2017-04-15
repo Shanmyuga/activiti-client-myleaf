@@ -37,7 +37,7 @@ public class ActivitiRestService {
 	
 	public ProcessInstanceList getProcessLists() {
 		HttpEntity<String> request = new HttpEntity<String>(httpHeader);
-		ResponseEntity<ProcessInstanceList> deployData = template.exchange(baseURL+"repository/process-definitions", HttpMethod.GET, request, ProcessInstanceList.class);
+		ResponseEntity<ProcessInstanceList> deployData = template.exchange(baseURL+"repository/process-definitions?size=15", HttpMethod.GET, request, ProcessInstanceList.class);
 		
 		return deployData.getBody();
 	}
@@ -48,5 +48,12 @@ public class ActivitiRestService {
 		ResponseEntity<FormDetails> deployData = template.exchange(baseURL+"form/form-data?processDefinitionId="+processDefinitionId, HttpMethod.GET, request, FormDetails.class);
 		
 		return  deployData.getBody().getFormKey();
+	}
+	
+	public FormDetails getProcessForm(String processDefinitionId) {
+		HttpEntity<String> request = new HttpEntity<String>(httpHeader);
+		ResponseEntity<FormDetails> deployData = template.exchange(baseURL+"form/form-data?processDefinitionId="+processDefinitionId, HttpMethod.GET, request, FormDetails.class);
+		
+		return  deployData.getBody();
 	}
 }
