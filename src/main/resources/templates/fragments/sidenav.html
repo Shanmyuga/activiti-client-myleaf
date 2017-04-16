@@ -1,12 +1,24 @@
 <html>
 <body>
 	<div class="col-sm-2 sidenav" th:fragment="sidenav">
-		<h3>List of Process</h3>
-		<p th:each="proc : ${proclist}">
-			Start - <a th:href="@{startProcess(processDefinitionId=${proc.id})}"
-				th:text="${proc.name}"></a>
-		</p>
-
+		<h3>
+			List of Process &nbsp; <a href="#" onclick="refreshProcess()"> <span
+				class="glyphicon glyphicon-refresh"></span>
+			</a>
+		</h3>
+		<!--  
+		<button type="button" class="btn btn-default btn-sm"
+			onclick="refreshProcess()">
+			<span class="glyphicon glyphicon-refresh"></span> Refresh
+		</button>
+		-->
+		<div th:fragment="data-sidenav" id="data-sidenav">
+			<p th:each="proc : ${proclist}">
+				Start - <a href="#"
+					th:onclick="'startTask(\'' + ${proc.id} + '\');'"
+					th:text="${proc.name}"></a>
+			</p>
+		</div>
 	</div>
 </body>
 </html>
