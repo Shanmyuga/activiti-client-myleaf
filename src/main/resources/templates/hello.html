@@ -4,8 +4,12 @@
   <meta charset="utf-8"></meta>
   <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"></link>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> <!-- load jquery via CDN -->
+ 
+
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <style>
     /* Remove the navbar's default margin-bottom and rounded borders */ 
     .navbar {
@@ -39,6 +43,34 @@
       .row.content {height:auto;} 
     }
   </style>
+ 
+ <script>
+ $(document).ready(function() {
+ $('#submitForm').submit(function(e) {
+     // reference to form object
+ var form = this;
+     // for stopping the default action of element
+     e.preventDefault();
+     // mapthat will hold form data
+     var formData = {}
+ //iterate over form elements   
+     $.each(this, function(i, v){
+      var input = $(v);
+      // populate form data as key-value pairs
+          // with the name of input as key and its value as value
+      formData[input.attr("name")] = input.val();
+    });
+    $.ajax({
+        type: form.attr('method'), // method attribute of form
+        url: form.attr('action'),  // action attribute of form
+        dataType : 'json',
+    // convert form data to json format
+        data : JSON.stringify(formData),
+     });
+});
+ });
+ </script>
+  
 </head>
 <body>
 
@@ -51,7 +83,7 @@
      
     </div>
     <div class="col-sm-8 text-left"> 
-     <div th:replace="${viewForm} :: activitiForm"></div>
+     <div th:replace="fragments/centerform :: centerform"></div>
     </div>
     <div class="col-sm-2 sidenav">
      

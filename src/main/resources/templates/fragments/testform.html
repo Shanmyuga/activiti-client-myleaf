@@ -1,0 +1,50 @@
+<html th:fragment="activitiForm">
+<head >
+  <script type="text/javascript">
+            $(function () {
+                $('#vacationStartDate').datepicker();
+            });
+            
+            $(function () {
+                $('#vacationEndDate').datepicker();
+            });
+            
+
+        </script>
+</head>
+   <body>
+      <form method="POST" action="/startProcessInstance" id="submitForm">
+         <h2>Vacation Request Form</h2>
+         <div class="form-group">
+            <label for="text">Vacation days</label>
+            <input type="text" maxlength="2" size="2" class="form-control" name="vacationDays" id="vacationDays"></input>
+         </div>
+         <div class="form-group">
+            <label for="text">Vacation Reason</label>
+            <input type="text" class="form-control" id="vacationReason"  name="vacationReason" ></input>
+         </div>
+         <div class="form-group">
+            <label for="text">Vacation Start Date</label>
+           
+               <input type="text"  size="10" maxlength="10" class="form-control" name="vacationStartDate" id="vacationStartDate"></input>
+             
+         </div>
+         <div class="form-group">
+            <label for="text">Vacation End Date</label>
+          
+               <input type="text"  size="10" maxlength="10" class="form-control" id="vacationEndDate" name="vacationEndDate"></input>
+               
+            
+         </div>
+         <div class="form-group">
+            <label for="sel1">Select list:</label>
+            <select class="form-control" id="projectId" name="projectId">
+               <option value="Digital">ESI</option>
+               <option value="Specialty">CVS</option>
+            </select>
+         </div>
+         
+         <input type="submit" class="btn btn-default" value="Submit"></input>
+      </form>
+   </body>
+</html>
