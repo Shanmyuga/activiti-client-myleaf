@@ -61,8 +61,15 @@
       formData[input.attr("name")] = input.val();
     });
     $.ajax({
-        type: form.attr('method'), // method attribute of form
-        url: form.attr('action'),  // action attribute of form
+        
+    	
+    	
+    	 headers: { 
+    	        'Accept': 'application/json',
+    	        'Content-Type': 'application/json' 
+    	    },
+    	type: 'POST', // method attribute of form
+        url: $(this).attr('action'),  // action attribute of form
         dataType : 'json',
     // convert form data to json format
         data : JSON.stringify(formData),
@@ -78,8 +85,8 @@
 <div class="container-fluid text-center">    
   <div class="row content">
     <div class="col-sm-2 sidenav">
-    <h3>List of Process</h3>
-      <p  th:each="proc : ${proclist}">Start - <a th:href="@{startProcess(processDefinitionId=${proc.id})}" th:text="${proc.name}"></a></p>
+    <h3>Application Details</h3>
+      <p>Start - <a href="/startProcess?processDefinitionId=process:2:27508">Application Assessment</a></p>
      
     </div>
     <div class="col-sm-8 text-left"> 
