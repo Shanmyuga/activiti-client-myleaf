@@ -46,7 +46,7 @@ public class ActivitiClientController {
 		ProcessInstanceList deployinfo = service.getProcessLists();
 		String formKey = service.getProcessFormKey(processDefinitionId);
 		if (formKey != null) {
-			model.addAttribute("viewForm", "fragments/testform");
+			model.addAttribute("viewForm", "fragments/ApplicationQuestionaire");
 		} else {
 			model.addAttribute("viewForm", formKey);
 		}

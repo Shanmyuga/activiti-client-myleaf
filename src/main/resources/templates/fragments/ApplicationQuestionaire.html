@@ -1,6 +1,32 @@
-<?xml version="1.0" encoding="UTF-8"?><html>
+<html th:fragment="activitiForm">
    <body>
+   
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="active">
+          <a href="#home" role="tab" data-toggle="tab">
+              <icon class="fa fa-home"></icon> Hardware and Software
+          </a>
+      </li>
+      <li><a href="#profile" role="tab" data-toggle="tab">
+          <i class="fa fa-user"></i> Application Health
+          </a>
+      </li>
+      <li>
+          <a href="#messages" role="tab" data-toggle="tab">
+              <i class="fa fa-envelope"></i> Messages
+          </a>
+      </li>
+      <li>
+          <a href="#settings" role="tab" data-toggle="tab">
+              <i class="fa fa-cog"></i> Settings
+          </a>
+      </li>
+    </ul>
+    
       <form>
+      
+      <div class="tab-content">
+      <div class="tab-pane fade active in" id="home">
          <div class="form-group">
             <label for="text">Hardware Server Configuration</label>
             <input type="text" class="form-control" id="hds_1"></input>
@@ -65,6 +91,8 @@
             <label for="text">Clients</label>
             <input type="text" class="form-control" id="hds_8"></input>
          </div>
+         </div>
+        <div class="tab-pane fade" id="profile">
          <div class="form-group">
             <label for="text">How many failures have occurred due to critical problems in the past 12 months?</label>
             <input type="text" class="form-control" id="app_health1"></input>
@@ -96,6 +124,8 @@
          <div class="form-group">
             <label for="text">What is the maximum available (affordability) window for batch?</label>
             <input type="text" class="form-control" id="app_health8"></input>
+         </div>
+         </div>
          </div>
       </form>
    </body>
