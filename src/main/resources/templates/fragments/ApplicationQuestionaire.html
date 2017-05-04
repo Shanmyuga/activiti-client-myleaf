@@ -1,131 +1,130 @@
-<html th:fragment="activitiForm">
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="activitiForm">
    <body>
-   
-    <ul class="nav nav-tabs" role="tablist">
-      <li class="active">
-          <a href="#home" role="tab" data-toggle="tab">
-              <icon class="fa fa-home"></icon> Hardware and Software
-          </a>
-      </li>
-      <li><a href="#profile" role="tab" data-toggle="tab">
-          <i class="fa fa-user"></i> Application Health
-          </a>
-      </li>
-      <li>
-          <a href="#messages" role="tab" data-toggle="tab">
-              <i class="fa fa-envelope"></i> Messages
-          </a>
-      </li>
-      <li>
-          <a href="#settings" role="tab" data-toggle="tab">
-              <i class="fa fa-cog"></i> Settings
-          </a>
-      </li>
-    </ul>
-    
       <form>
-      
-      <div class="tab-content">
-      <div class="tab-pane fade active in" id="home">
-         <div class="form-group">
-            <label for="text">Hardware Server Configuration</label>
-            <input type="text" class="form-control" id="hds_1"></input>
-         </div>
-         <div class="form-group">
-            <label for="text">Hardware Clients</label>
-            <input type="text" class="form-control" id="hds_2"></input>
-         </div>
-         <div class="form-group">
-            <label for="text">Hardware Transaction Middleware</label>
-            <input type="text" class="form-control" id="hds_3"></input>
-         </div>
-         <div class="form-group">
-            <label for="text">Hardware Database Middleware</label>
-            <input type="text" class="form-control" id="hds_4"></input>
-         </div>
-         <div class="form-group">
-            <label for="text">Others - Hardware</label>
-            <input type="text" class="form-control" id="hds_5"></input>
-         </div>
-         <div class="form-group">
-            <label for="text">Programming Languages</label>
-            <input type="text" class="form-control" id="hds_12"></input>
-         </div>
-         <div class="form-group">
-            <label for="text">Job scheduler</label>
-            <input type="text" class="form-control" id="hds_17"></input>
-         </div>
-         <div class="form-group">
-            <label for="text">Utilities</label>
-            <input type="text" class="form-control" id="hds_7"></input>
-         </div>
-         <div class="form-group">
-            <label for="text">3rd Party tools</label>
-            <input type="text" class="form-control" id="hds_12"></input>
-         </div>
-         <div class="form-group">
-            <label for="text">OperatingSystem</label>
-            <input type="text" class="form-control" id="hds_6"></input>
-         </div>
-         <div class="form-group">
-            <label for="text">User Interface</label>
-            <input type="text" class="form-control" id="hds_10"></input>
-         </div>
-         <div class="form-group">
-            <label for="text">Transaction processor</label>
-            <input type="text" class="form-control" id="hds_10"></input>
-         </div>
-         <div class="form-group">
-            <label for="text">File system</label>
-            <input type="text" class="form-control" id="hds_8"></input>
-         </div>
-         <div class="form-group">
-            <label for="text">Database</label>
-            <input type="text" class="form-control" id="hds_7"></input>
-         </div>
-         <div class="form-group">
-            <label for="text">Application Server</label>
-            <input type="text" class="form-control" id="hds_7"></input>
-         </div>
-         <div class="form-group">
-            <label for="text">Clients</label>
-            <input type="text" class="form-control" id="hds_8"></input>
-         </div>
-         </div>
-        <div class="tab-pane fade" id="profile">
-         <div class="form-group">
-            <label for="text">How many failures have occurred due to critical problems in the past 12 months?</label>
-            <input type="text" class="form-control" id="app_health1"></input>
-         </div>
-         <div class="form-group">
-            <label for="text">Please provide the average number of critical support / maintenance  tickets logged in a month</label>
-            <input type="text" class="form-control" id="app_health2"></input>
-         </div>
-         <div class="form-group">
-            <label for="text">Please provide the average number of production bugs reported in a month</label>
-            <input type="text" class="form-control" id="app_health3"></input>
-         </div>
-         <div class="form-group">
-            <label for="text">Please provide the average number of adhoc/unplanned requests received in a month</label>
-            <input type="text" class="form-control" id="app_health4"></input>
-         </div>
-         <div class="form-group">
-            <label for="text">What was the number of planned releases / enhancements in the past 12 months?</label>
-            <input type="text" class="form-control" id="appp_health5"></input>
-         </div>
-         <div class="form-group">
-            <label for="text">Are the batch jobs scheduled?</label>
-            <input type="text" class="form-control" id="app_health6"></input>
-         </div>
-         <div class="form-group">
-            <label for="text">What is the current batch processing window?</label>
-            <input type="text" class="form-control" id="app_health7"></input>
-         </div>
-         <div class="form-group">
-            <label for="text">What is the maximum available (affordability) window for batch?</label>
-            <input type="text" class="form-control" id="app_health8"></input>
-         </div>
-         </div>
+         <ul class="nav nav-tabs" role="tablist">
+            <li>
+               <a role="tab" data-toggle="tab" href="#hardwardSoftware">Hardware and Software Configuration</a>
+            </li>
+            <li>
+               <a role="tab" data-toggle="tab" href="#appHealth">Application Health</a>
+            </li>
+         </ul>
+         <div class="tab-content">
+            	
+            <div class="tab-pane fade" id="hardwardSoftware">
+               <div class="form-group">
+                  <label for="text">Hardware Server Configuration</label>
+                  <input type="text" class="form-control" id="hds_1"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Hardware Clients</label>
+                  <input type="text" class="form-control" id="hds_2"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Hardware Transaction Middleware</label>
+                  <input type="text" class="form-control" id="hds_3"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Hardware Database Middleware</label>
+                  <input type="text" class="form-control" id="hds_4"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Others - Hardware</label>
+                  <input type="text" class="form-control" id="hds_5"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Programming Languages</label>
+                  <input type="text" class="form-control" id="hds_12"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Job scheduler</label>
+                  <input type="text" class="form-control" id="hds_17"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Utilities</label>
+                  <input type="text" class="form-control" id="hds_7"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">3rd Party tools</label>
+                  <input type="text" class="form-control" id="hds_12"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">OperatingSystem</label>
+                  <input type="text" class="form-control" id="hds_6"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">User Interface</label>
+                  <input type="text" class="form-control" id="hds_10"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Transaction processor</label>
+                  <input type="text" class="form-control" id="hds_10"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">File system</label>
+                  <input type="text" class="form-control" id="hds_8"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Database</label>
+                  <input type="text" class="form-control" id="hds_7"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Application Server</label>
+                  <input type="text" class="form-control" id="hds_7"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Clients</label>
+                  <input type="text" class="form-control" id="hds_8"></input>
+               </div>
+            </div>
+            	
+            <div class="tab-pane fade" id="appHealth">
+               <div class="form-group">
+                  <label for="text">How many failures have occurred due to critical problems in
+                     					the past 12 months?
+                  </label>
+                  <input type="text" class="form-control" id="app_health1"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Please provide the average number of critical support /
+                     					maintenance tickets logged in a month
+                  </label>
+                  <input type="text" class="form-control" id="app_health2"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Please provide the average number of production bugs reported
+                     					in a month
+                  </label>
+                  <input type="text" class="form-control" id="app_health3"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Please provide the average number of adhoc/unplanned requests
+                     					received in a month
+                  </label>
+                  <input type="text" class="form-control" id="app_health4"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">What was the number of planned releases / enhancements in the
+                     					past 12 months?
+                  </label>
+                  <input type="text" class="form-control" id="appp_health5"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Are the batch jobs scheduled?</label>
+                  <input type="text" class="form-control" id="app_health6"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">What is the current batch processing window?</label>
+                  <input type="text" class="form-control" id="app_health7"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">What is the maximum available (affordability) window for
+                     					batch?
+                  </label>
+                  <input type="text" class="form-control" id="app_health8"></input>
+               </div>
+            </div>
+            
          </div>
       </form>
    </body>
