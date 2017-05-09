@@ -54,9 +54,10 @@ System.out.println(username);
 		TaskResponse taskinfo = service.getTasksForaUser(username);
 		
 		System.out.println(taskinfo.getSize());
-		model.addAttribute("name", name);
 		
-		model.addAttribute("sidenavForm", "fragments/blanksidenav");
+		model.addAttribute("name", name);
+		model.addAttribute("tasklist",taskinfo.getData());
+		model.addAttribute("sidenavForm", "fragments/tasksidebar");
 		model.addAttribute("viewForm", "fragments/blankform");
 
 		return "hello";
@@ -64,17 +65,17 @@ System.out.println(username);
 
 	@GetMapping("/startProcess")
 	public String startProcess(Model model,
-			@RequestParam(value = "processDefinitionId", required = true) String processDefinitionId) {
-		ProcessInstanceList deployinfo = service.getProcessLists();
-		String formKey = service.getProcessFormKey(processDefinitionId);
-		if (formKey != null) {
+			@RequestParam(value = "taskid", required = true) String taskid) {
+		
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		System.out.println(username);
+				TaskResponse taskinfo = service.getTasksForaUser(username);
+		
 			model.addAttribute("viewForm", "fragments/ApplicationQuestionaire");
-			model.addAttribute("processdefid", processDefinitionId);
-		} else {
-			model.addAttribute("viewForm", formKey);
-		}
-		model.addAttribute("processdefid", processDefinitionId);
-		model.addAttribute("proclist", deployinfo.getData());
+			model.addAttribute("processdefid", taskid);
+			model.addAttribute("sidenavForm", "fragments/tasksidebar");
+		
+		
 		return "hello";
 	}
 
