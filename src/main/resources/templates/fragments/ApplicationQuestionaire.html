@@ -1,7 +1,11 @@
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="activitiForm">
    <body>
-      <form>
+      <form method="POST" action="/startProcessInstance" id="submitForm">
+      <input type="hidden"  th:value="${processdefid}" name="processDefinitionId" id="processDefinitionId" ></input>
          <ul class="nav nav-tabs" role="tablist">
+            <li class="active">
+               <a role="tab" data-toggle="tab" href="#customerInfo">Customer Information</a>
+            </li>
             <li>
                <a role="tab" data-toggle="tab" href="#hardwardSoftware">Hardware and Software Configuration</a>
             </li>
@@ -10,7 +14,27 @@
             </li>
          </ul>
          <div class="tab-content">
-            	
+            <div class="tab-pane fade active in" id="customerInfo">
+               <div class="form-group">
+                  <label for="text">Customer Name</label>
+                  <input type="text" class="form-control" id="cust_id1"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Customer Address</label>
+                  <input type="text" class="form-control" id="cust_id2"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Customer Domain</label>
+                  <input type="text" class="form-control" id="cust_id3"></input>
+               </div>
+               <div class="form-group">
+                  <label for="sel1">Select list:</label>
+                  <select class="form-control" id="cust_id4">
+                     <option value="new">New Customer</option>
+                     <option value="existing">Existing Customer</option>
+                  </select>
+               </div>
+            </div>
             <div class="tab-pane fade" id="hardwardSoftware">
                <div class="form-group">
                   <label for="text">Hardware Server Configuration</label>
@@ -77,36 +101,25 @@
                   <input type="text" class="form-control" id="hds_8"></input>
                </div>
             </div>
-            	
             <div class="tab-pane fade" id="appHealth">
                <div class="form-group">
-                  <label for="text">How many failures have occurred due to critical problems in
-                     					the past 12 months?
-                  </label>
+                  <label for="text">How many failures have occurred due to critical problems in the past 12 months?</label>
                   <input type="text" class="form-control" id="app_health1"></input>
                </div>
                <div class="form-group">
-                  <label for="text">Please provide the average number of critical support /
-                     					maintenance tickets logged in a month
-                  </label>
+                  <label for="text">Please provide the average number of critical support / maintenance  tickets logged in a month</label>
                   <input type="text" class="form-control" id="app_health2"></input>
                </div>
                <div class="form-group">
-                  <label for="text">Please provide the average number of production bugs reported
-                     					in a month
-                  </label>
+                  <label for="text">Please provide the average number of production bugs reported in a month</label>
                   <input type="text" class="form-control" id="app_health3"></input>
                </div>
                <div class="form-group">
-                  <label for="text">Please provide the average number of adhoc/unplanned requests
-                     					received in a month
-                  </label>
+                  <label for="text">Please provide the average number of adhoc/unplanned requests received in a month</label>
                   <input type="text" class="form-control" id="app_health4"></input>
                </div>
                <div class="form-group">
-                  <label for="text">What was the number of planned releases / enhancements in the
-                     					past 12 months?
-                  </label>
+                  <label for="text">What was the number of planned releases / enhancements in the past 12 months?</label>
                   <input type="text" class="form-control" id="appp_health5"></input>
                </div>
                <div class="form-group">
@@ -118,14 +131,12 @@
                   <input type="text" class="form-control" id="app_health7"></input>
                </div>
                <div class="form-group">
-                  <label for="text">What is the maximum available (affordability) window for
-                     					batch?
-                  </label>
-                  <input type="text" class="form-control" id="app_health8"></input>
+                  <label for="text">What is the maximum available (affordability) window for batch?</label>
+                  <input type="tex t" class="form-control" id="app_health8"></input>
                </div>
             </div>
-            
          </div>
+         <input type="submit" class="btn btn-default" value="Submit"></input>
       </form>
    </body>
 </html>

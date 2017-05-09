@@ -1,0 +1,24 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    
+    <body th:fragment="activitiForm">
+        <h3> Welcome to Application Assessment Portal  </h3> 
+        <p th:if="${param.error}">
+            Bad Credentials  
+        </p>
+        <form th:action="@{/appLogin}" method="POST">
+         <div class="form-group">
+           <label for="text">UserName  :</label>
+            <input type="text"   class="wrap" name="app_username" size="8" ></input> 
+            
+            </div>
+            
+              <div class="form-group">
+           <label for="text">Password  :</label>
+            <input type="password"   class="wrap" name="app_password" size="8"></input>  
+            
+            </div>
+          
+            <input type="submit" class="btn btn-default" value="Login"></input> 
+        </form>
+    </body>
+</html> 

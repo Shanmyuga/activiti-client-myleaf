@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.bpm.activiti.client.model.DeployMentList;
+import com.bpm.activiti.client.model.StartProcessModel;
 import com.bpm.activiti.client.model.formdetails.FormDetails;
 import com.bpm.activiti.client.model.processlist.ProcessInstanceList;
+import com.bpm.activiti.task.response.model.TaskResponse;
 
 
 @Service
@@ -48,5 +50,25 @@ public class ActivitiRestService {
 		ResponseEntity<FormDetails> deployData = template.exchange(baseURL+"form/form-data?processDefinitionId="+processDefinitionId, HttpMethod.GET, request, FormDetails.class);
 		
 		return  deployData.getBody().getFormKey();
+	}
+	
+	
+	public void startProcess(StartProcessModel model) {
+		
+		HttpEntity request = new HttpEntity(model,httpHeader);
+	
+		ResponseEntity<String> deployData = template.exchange(baseURL+"runtime/process-instances", HttpMethod.POST, request, String.class);
+		
+		  
+	}
+	
+	public TaskResponse getTasksForaUser(String  userid) {
+		
+		HttpEntity request = new HttpEntity(httpHeader);
+	
+		ResponseEntity<TaskResponse> deployData = template.exchange(baseURL+"runtime/tasks?assignee="+userid, HttpMethod.GET, request, TaskResponse.class);
+		
+		return deployData.getBody();
+		  
 	}
 }
