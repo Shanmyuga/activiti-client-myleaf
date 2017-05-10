@@ -86,40 +86,7 @@
     
   </style>
  
- <script>
- $(document).ready(function() {
- $('#submitForm').submit(function(e) {
-     // reference to form object
- var form = this;
-     // for stopping the default action of element
-     e.preventDefault();
-     // mapthat will hold form data
-     var formData = {}
- //iterate over form elements   
-     $.each(this, function(i, v){
-      var input = $(v);
-      // populate form data as key-value pairs
-          // with the name of input as key and its value as value
-      formData[input.attr("id")] = input.val();
-    });
-    $.ajax({
-        
-    	
-    	
-    	 headers: { 
-    	        'Accept': 'application/json',
-    	        'Content-Type': 'application/json' 
-    	    },
-    	type: 'POST', // method attribute of form
-        url: $(this).attr('action'),  // action attribute of form
-        dataType : 'json',
-    // convert form data to json format
-        data : JSON.stringify(formData),
-     });
-});
- });
- </script>
-  
+ 
 </head>
 <body>
 

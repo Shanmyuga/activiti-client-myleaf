@@ -1,16 +1,15 @@
 package com.bpm.activiti.client.controller;
 
 import java.io.IOException;
-import java.io.StringWriter;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -70,7 +69,13 @@ System.out.println(username);
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		System.out.println(username);
 				TaskResponse taskinfo = service.getTasksForaUser(username);
-		
+				Map<String,String> map = new HashMap<String,String>();
+				map.put("cust_id1", "Name");
+				map.put("taskId", taskid);
+				TaskFormWrapper wrapper = new TaskFormWrapper();
+				wrapper.setDatamap(map);
+				model.addAttribute("taskform",wrapper);
+				model.addAttribute("datamap",map);
 			model.addAttribute("viewForm", "fragments/ApplicationQuestionaire");
 			model.addAttribute("processdefid", taskid);
 			model.addAttribute("sidenavForm", "fragments/tasksidebar");
@@ -79,11 +84,10 @@ System.out.println(username);
 		return "hello";
 	}
 
-	@RequestMapping(value = "/tasks", method = RequestMethod.POST, consumes = {
-			MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value = "/secure/tasks", method = RequestMethod.POST)
 
-	public String processInstance(Model model, @RequestBody Map<String,String> map) throws IOException {
-      
+	public String processInstance(Model model,@ModelAttribute TaskFormWrapper form) throws IOException {
+    Map<String,String> map = form.getDatamap();
 		StartProcessModel startmodel = new StartProcessModel();
 		startmodel.setProcessDefinitionId(map.get("processDefinitionId"));
 		
@@ -95,8 +99,9 @@ System.out.println(username);
 	        variable.setName("PROCESS_DATA");
 	        variable.setValue(mapAsJson);
 		  startmodel.getVariables().add(variable);
-		  service.startProcess(startmodel);
+		  //service.addVariablesToTask(taskId, variables);
 		model.addAttribute("viewForm", "fragments/process_success");
+		model.addAttribute("sidenavForm", "fragments/tasksidebar");
 		return "hello";
 	}
 }

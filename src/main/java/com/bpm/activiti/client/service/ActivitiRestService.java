@@ -1,5 +1,7 @@
 package com.bpm.activiti.client.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.bpm.activiti.client.model.DeployMentList;
+import com.bpm.activiti.client.model.TaskProcessVariable;
 import com.bpm.activiti.client.model.StartProcessModel;
 import com.bpm.activiti.client.model.formdetails.FormDetails;
 import com.bpm.activiti.client.model.processlist.ProcessInstanceList;
@@ -58,6 +61,16 @@ public class ActivitiRestService {
 		HttpEntity request = new HttpEntity(model,httpHeader);
 	
 		ResponseEntity<String> deployData = template.exchange(baseURL+"runtime/process-instances", HttpMethod.POST, request, String.class);
+		
+		  
+	}
+	
+	
+public void addVariablesToTask(String taskId,List<TaskProcessVariable> variables) {
+		
+		HttpEntity request = new HttpEntity(variables,httpHeader);
+	
+		ResponseEntity<String> deployData = template.exchange(baseURL+"runtime/tasks/"+taskId+"/variables", HttpMethod.POST, request, String.class);
 		
 		  
 	}

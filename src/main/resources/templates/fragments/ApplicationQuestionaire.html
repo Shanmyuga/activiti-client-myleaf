@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="activitiForm">
    <body>
-      <form method="POST" action="/startProcessInstance" id="submitForm">
-      <input type="hidden"  th:value="${processdefid}" name="processDefinitionId" id="processDefinitionId" ></input>
+      <form method="POST" action="/app/secure/tasks" id="submitForm" th:object="${taskform}">
+      <input type="hidden"  id="taskId"  th:field="*{datamap[__taskId__]}" ></input>
          <ul class="nav nav-tabs" role="tablist">
             <li class="active">
                <a role="tab" data-toggle="tab" href="#customerInfo">Customer Information</a>
@@ -17,19 +17,19 @@
             <div class="tab-pane fade active in" id="customerInfo">
                <div class="form-group">
                   <label for="text">Customer Name</label>
-                  <input type="text" class="form-control" id="cust_id1"></input>
+                  <input type="text" class="form-control"  th:field="*{datamap[__cust_id1__]}"></input>
                </div>
                <div class="form-group">
                   <label for="text">Customer Address</label>
-                  <input type="text" class="form-control" id="cust_id2"></input>
+                  <input type="text" class="form-control" id="cust_id2"  th:field="*{datamap[__cust_id2__]}"></input>
                </div>
                <div class="form-group">
                   <label for="text">Customer Domain</label>
-                  <input type="text" class="form-control" id="cust_id3"></input>
+                  <input type="text" class="form-control" id="cust_id3" th:field="*{datamap[__cust_id3__]}"></input>
                </div>
                <div class="form-group">
                   <label for="sel1">Select list:</label>
-                  <select class="form-control" id="cust_id4">
+                  <select class="form-control" id="cust_id4"  th:field="*{datamap[__cust_id4__]}">
                      <option value="new">New Customer</option>
                      <option value="existing">Existing Customer</option>
                   </select>
@@ -38,39 +38,39 @@
             <div class="tab-pane fade" id="hardwardSoftware">
                <div class="form-group">
                   <label for="text">Hardware Server Configuration</label>
-                  <input type="text" class="form-control" id="hds_1"></input>
+                  <input type="text" class="form-control" id="hds_1" th:field="*{datamap[__hds_1__]}"></input>
                </div>
                <div class="form-group">
                   <label for="text">Hardware Clients</label>
-                  <input type="text" class="form-control" id="hds_2"></input>
+                  <input type="text" class="form-control" id="hds_2" th:field="*{datamap[__hds_2__]}" ></input>
                </div>
                <div class="form-group">
                   <label for="text">Hardware Transaction Middleware</label>
-                  <input type="text" class="form-control" id="hds_3"></input>
+                  <input type="text" class="form-control" id="hds_3" th:field="*{datamap[__hds_3__]}"></input>
                </div>
                <div class="form-group">
                   <label for="text">Hardware Database Middleware</label>
-                  <input type="text" class="form-control" id="hds_4"></input>
+                  <input type="text" class="form-control" id="hds_4" th:field="*{datamap[__hds_4__]}"></input>
                </div>
                <div class="form-group">
                   <label for="text">Others - Hardware</label>
-                  <input type="text" class="form-control" id="hds_5"></input>
+                  <input type="text" class="form-control" id="hds_5" th:field="*{datamap[__hds_5__]}"></input>
                </div>
                <div class="form-group">
                   <label for="text">Programming Languages</label>
-                  <input type="text" class="form-control" id="hds_12"></input>
+                  <input type="text" class="form-control" id="hds_13" th:field="*{datamap[__hds_13__]}"></input>
                </div>
                <div class="form-group">
                   <label for="text">Job scheduler</label>
-                  <input type="text" class="form-control" id="hds_17"></input>
+                  <input type="text" class="form-control" id="hds_17" th:field="*{datamap[__hds_17__]}"></input>
                </div>
                <div class="form-group">
                   <label for="text">Utilities</label>
-                  <input type="text" class="form-control" id="hds_7"></input>
+                  <input type="text" class="form-control" id="hds_7"  th:field="*{datamap[__hds_7__]}"></input>
                </div>
                <div class="form-group">
                   <label for="text">3rd Party tools</label>
-                  <input type="text" class="form-control" id="hds_12"></input>
+                  <input type="text" class="form-control" id="hds_12" th:field="*{datamap[__hds_12__]}"></input>
                </div>
                <div class="form-group">
                   <label for="text">OperatingSystem</label>
@@ -78,27 +78,27 @@
                </div>
                <div class="form-group">
                   <label for="text">User Interface</label>
-                  <input type="text" class="form-control" id="hds_10"></input>
+                  <input type="text" class="form-control" id="hds_11"></input>
                </div>
                <div class="form-group">
                   <label for="text">Transaction processor</label>
-                  <input type="text" class="form-control" id="hds_10"></input>
+                  <input type="text" class="form-control" id="hds_91"></input>
                </div>
                <div class="form-group">
                   <label for="text">File system</label>
-                  <input type="text" class="form-control" id="hds_8"></input>
+                  <input type="text" class="form-control" id="hds_82"></input>
                </div>
                <div class="form-group">
                   <label for="text">Database</label>
-                  <input type="text" class="form-control" id="hds_7"></input>
+                  <input type="text" class="form-control" id="hds_71"></input>
                </div>
                <div class="form-group">
                   <label for="text">Application Server</label>
-                  <input type="text" class="form-control" id="hds_7"></input>
+                  <input type="text" class="form-control" id="hds_71"></input>
                </div>
                <div class="form-group">
                   <label for="text">Clients</label>
-                  <input type="text" class="form-control" id="hds_8"></input>
+                  <input type="text" class="form-control" id="hds_81"></input>
                </div>
             </div>
             <div class="tab-pane fade" id="appHealth">
