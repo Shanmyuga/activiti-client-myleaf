@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class TaskResponse {
 
 @JsonProperty("data")
-private List<Datum> data = null;
+private List<TaskDatum> data = null;
 @JsonProperty("total")
 private Integer total;
 @JsonProperty("start")
@@ -37,12 +37,12 @@ private Integer size;
 private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
 @JsonProperty("data")
-public List<Datum> getData() {
+public List<TaskDatum> getData() {
 return data;
 }
 
 @JsonProperty("data")
-public void setData(List<Datum> data) {
+public void setData(List<TaskDatum> data) {
 this.data = data;
 }
 

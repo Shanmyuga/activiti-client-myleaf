@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 "processDefinitionId",
 "processDefinitionUrl"
 })
-public class Datum {
+public class TaskDatum {
 
 @JsonProperty("id")
 private String id;

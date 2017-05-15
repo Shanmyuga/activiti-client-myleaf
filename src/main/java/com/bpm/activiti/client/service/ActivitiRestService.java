@@ -9,13 +9,15 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
 import com.bpm.activiti.client.model.DeployMentList;
 import com.bpm.activiti.client.model.TaskProcessVariable;
-import com.bpm.activiti.client.model.StartProcessModel;
 import com.bpm.activiti.client.model.formdetails.FormDetails;
 import com.bpm.activiti.client.model.processlist.ProcessInstanceList;
+import com.bpm.activiti.client.model.task.TaskComplete;
+import com.bpm.activiti.task.response.model.TaskDatum;
 import com.bpm.activiti.task.response.model.TaskResponse;
 
 
@@ -56,30 +58,73 @@ public class ActivitiRestService {
 	}
 	
 	
-	public void startProcess(StartProcessModel model) {
+	public TaskProcessVariable  getVariableExist(String taskId,String variableName) {
 		
-		HttpEntity request = new HttpEntity(model,httpHeader);
-	
-		ResponseEntity<String> deployData = template.exchange(baseURL+"runtime/process-instances", HttpMethod.POST, request, String.class);
+		HttpEntity<String> request = new HttpEntity<String>(httpHeader);
+		ResponseEntity<TaskProcessVariable> deployData = null;
 		
+		try {
+		  
+		String fullurl = baseURL+"runtime/tasks/"+taskId+"/variables/"+variableName+"?scope=global";
+	deployData = template.exchange(fullurl, HttpMethod.GET, request, TaskProcessVariable.class);
+		} catch (HttpStatusCodeException exception) {
+			
+		    int statusCode = exception.getStatusCode().value();
+		  if(statusCode == 404) {
+			  return null;
+		  }
+		}	
+		
+		return deployData.getBody();
 		  
 	}
 	
 	
-public void addVariablesToTask(String taskId,List<TaskProcessVariable> variables) {
+public void addUpdateVariablesToTask(String taskId,List<TaskProcessVariable> variables) {
 		
 		HttpEntity request = new HttpEntity(variables,httpHeader);
 	
-		ResponseEntity<String> deployData = template.exchange(baseURL+"runtime/tasks/"+taskId+"/variables", HttpMethod.POST, request, String.class);
+		ResponseEntity<String> deployData = template.exchange(baseURL+"runtime/tasks/"+taskId+"/variables", HttpMethod.PUT, request, String.class);
 		
 		  
 	}
+public void completeTask(String taskId,TaskComplete complete) {
+	
+	HttpEntity request = new HttpEntity(complete,httpHeader);
+
+	ResponseEntity<String> deployData = template.exchange(baseURL+"runtime/tasks/"+taskId, HttpMethod.POST, request, String.class);
+	
+	  
+}
+
+
 	
 	public TaskResponse getTasksForaUser(String  userid) {
 		
 		HttpEntity request = new HttpEntity(httpHeader);
 	
 		ResponseEntity<TaskResponse> deployData = template.exchange(baseURL+"runtime/tasks?assignee="+userid, HttpMethod.GET, request, TaskResponse.class);
+		
+		return deployData.getBody();
+		  
+	}
+	
+public TaskResponse getTasksForaGroup(String  groupId) {
+		
+		HttpEntity request = new HttpEntity(httpHeader);
+	
+		ResponseEntity<TaskResponse> deployData = template.exchange(baseURL+"runtime/tasks?candidateGroup="+groupId, HttpMethod.GET, request, TaskResponse.class);
+		
+		return deployData.getBody();
+		  
+	}
+	
+	
+	public TaskDatum getTaskDetails(String  taskid) {
+		
+		HttpEntity request = new HttpEntity(httpHeader);
+	
+		ResponseEntity<TaskDatum> deployData = template.exchange(baseURL+"runtime/tasks/"+taskid, HttpMethod.GET, request, TaskDatum.class);
 		
 		return deployData.getBody();
 		  

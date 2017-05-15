@@ -16,7 +16,10 @@
       margin-bottom: 0;
       border-radius: 0;
     }
-    
+    .form-group.required .control-label:after {
+  content:"*";
+  color:red;
+}
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
     .row.content {height: 450px}
     
@@ -86,7 +89,28 @@
     
   </style>
  
+ <script type="text/javascript">
+ function submitForm (button)
+ {
+
+	
+	 var form = document.getElementById('submitForm');
+   if (button.value == "Save")
+   {
+	   
+	   document.getElementById('actiontag').value="Save";
+   }
+   else if (button.value == "Submit")
+   {
+	  
+	   document.getElementById('actiontag').value="Submit";
+   } 
+  
+  
+ }
+
  
+ </script>
 </head>
 <body>
 
