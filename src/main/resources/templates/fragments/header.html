@@ -12,9 +12,10 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Review</a></li>
-        <li><a href="#">Feedback</a></li>
-     
+        <li class="active"><a href="/app/home">Home</a></li>
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <li><a href="/app/secure/processhome">Process Instances</a></li>
+     </div>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="/appLogout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>

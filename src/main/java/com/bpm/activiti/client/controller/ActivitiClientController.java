@@ -10,14 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StopWatch.TaskInfo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bpm.activiti.client.model.StartProcessModel;
 import com.bpm.activiti.client.model.TaskProcessVariable;
+import com.bpm.activiti.client.model.Variable;
+import com.bpm.activiti.client.model.processlist.ProcessInstanceList;
 import com.bpm.activiti.client.model.task.TaskComplete;
 import com.bpm.activiti.client.service.ActivitiRestService;
 import com.bpm.activiti.task.response.model.TaskDatum;
@@ -60,6 +62,37 @@ TaskResponse taskinfo = getTasksfortheuserGroup();
 
 		return "hello";
 	}
+	
+	@GetMapping("/secure/processhome")
+	public String startProcessHome(Model model) {
+		ProcessInstanceList deployinfo = service.getProcessLists();
+	
+		
+			model.addAttribute("viewForm", "fragments/blankform");
+		
+		model.addAttribute("sidenavForm", "fragments/procsidebar");
+		model.addAttribute("proclist", deployinfo.getData());
+		return "hello";
+	}
+	
+	@GetMapping("/secure/startProcessInstance")
+	public String startProcessInstance(Model model,@RequestParam(value = "processDefinitionId", required = true) String processDefinitionId) {
+		ProcessInstanceList deployinfo = service.getProcessLists();
+	
+	String formkey = 	service.getProcessFormKey(processDefinitionId);
+	System.out.println(formkey);
+	TaskFormWrapper wrapper = new TaskFormWrapper();
+	Map<String,String> map  = new HashMap<String,String>();
+	map.put("processDefinitionId", processDefinitionId);
+	wrapper.setDatamap(map);
+	model.addAttribute("taskform",wrapper);
+			model.addAttribute("viewForm", "fragments/"+formkey);
+			model.addAttribute("datamap",map);	
+		model.addAttribute("sidenavForm", "fragments/procsidebar");
+		model.addAttribute("proclist", deployinfo.getData());
+		return "hello";
+	}
+
 
 	@GetMapping("/startProcess")
 	public String startProcess(Model model,
@@ -100,6 +133,40 @@ TaskResponse taskinfo = getTasksfortheuserGroup();
 		return "hello";
 	}
 
+	
+	
+	@RequestMapping(value = "/secure/startprocess", method = RequestMethod.POST)
+
+	public String startPRocessInstance(Model model,@ModelAttribute TaskFormWrapper form) throws IOException {
+    Map<String,String> map = form.getDatamap();
+	
+	
+		
+		 String mapAsJson = new ObjectMapper().writeValueAsString(map);
+	        System.out.println(mapAsJson);
+	        
+	   StartProcessModel spmodel  = new StartProcessModel();
+	   spmodel.setProcessDefinitionId(map.get("processDefinitionId"));
+	   map.forEach((k,v)-> {
+		   Variable var = new Variable();
+		   var.setName(k);
+		   var.setValue(v);
+		   spmodel.getVariables().add(var);
+	   });
+
+			
+			
+			  model.addAttribute("viewForm", "fragments/processstart_success");
+		 
+			  
+				ProcessInstanceList deployinfo = service.getProcessLists();
+			
+		service.startProcess(spmodel);
+		
+		model.addAttribute("proclist", deployinfo.getData());
+		model.addAttribute("sidenavForm", "fragments/tasksidebar");
+		return "hello";
+	}
 	@RequestMapping(value = "/secure/tasks", method = RequestMethod.POST)
 
 	public String saveTaskData(Model model,@ModelAttribute TaskFormWrapper form) throws IOException {

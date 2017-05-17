@@ -1,0 +1,9 @@
+<html>
+<body>
+<form th:fragment="sidenavForm">
+ <h3>My Process</h3>
+      <p  th:each="proc : ${proclist}">Start - <a th:href="@{/app/secure/startProcessInstance(processDefinitionId=${proc.id})}" th:text="${proc.name}"></a></p>
+  
+</form>
+</body>
+</html>  
