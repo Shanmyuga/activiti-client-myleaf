@@ -1,0 +1,9 @@
+<html>
+<body>
+<form th:fragment="sidenavForm">
+ <h3>My Tasks</h3>
+      <p  th:each="proc : ${tasklist}">Start - <a th:href="@{startProcess(taskid=${proc.id})}" th:text="${proc.name}"></a></p>
+  
+</form>
+</body>
+</html>  

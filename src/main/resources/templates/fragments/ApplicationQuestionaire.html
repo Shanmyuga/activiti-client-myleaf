@@ -1,0 +1,146 @@
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="activitiForm">
+
+
+   <body>
+     <form method="POST" action="/app/secure/tasks" id="submitForm" th:object="${taskform}">
+      <input type="hidden"  id="taskId"  th:field="*{datamap[__taskId__]}" ></input>
+        <input type="hidden"  id="actiontag"  th:field="*{datamap[__actiontag__]}" ></input>
+         <ul class="nav nav-tabs" role="tablist">
+            <li class="active">
+               <a role="tab" data-toggle="tab" href="#customerInfo">Customer Information</a>
+            </li>
+            <li>
+               <a role="tab" data-toggle="tab" href="#hardwardSoftware">Hardware and Software Configuration</a>
+            </li>
+            <li>
+               <a role="tab" data-toggle="tab" href="#appHealth">Application Health</a>
+            </li>
+         </ul>
+         <div class="tab-content">
+            <div class="tab-pane fade active in" id="customerInfo">
+               <div class="form-group required">
+                  <label class='control-label' for="text">Customer Name</label>
+                  <input type="text" class="form-control" id="cust_id1" th:field="*{datamap[__cust_id1__]}" required="required" ></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Customer Address</label>
+                  <input type="text" class="form-control" id="cust_id2" th:field="*{datamap[__cust_id2__]}"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Customer Domain</label>
+                  <input type="text" class="form-control" id="cust_id3" th:field="*{datamap[__cust_id3__]}"></input>
+               </div>
+               <div class="form-group">
+                  <label for="sel1">Select list:</label>
+                  <select class="form-control" id="cust_id4" th:field="*{datamap[__cust_id4__]}">
+                     <option value="new">New Customer</option>
+                     <option value="existing">Existing Customer</option>
+                  </select>
+               </div>
+            </div>
+            <div class="tab-pane fade" id="hardwardSoftware">
+               <div class="form-group">
+                  <label for="text">Hardware Server Configuration</label>
+                  <input type="text" class="form-control" id="hds_1" th:field="*{datamap[__hds_1__]}"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Hardware Clients</label>
+                  <input type="text" class="form-control" id="hds_2" th:field="*{datamap[__hds_2__]}"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Hardware Transaction Middleware</label>
+                  <input type="text" class="form-control" id="hds_3" th:field="*{datamap[__hds_3__]}"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Hardware Database Middleware</label>
+                  <input type="text" class="form-control" id="hds_4" th:field="*{datamap[__hds_4__]}"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Others - Hardware</label>
+                  <input type="text" class="form-control" id="hds_5" th:field="*{datamap[__hds_5__]}"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Programming Languages</label>
+                  <input type="text" class="form-control" id="hds_6" th:field="*{datamap[__hds_6__]}"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Job scheduler</label>
+                  <input type="text" class="form-control" id="hds_7" th:field="*{datamap[__hds_7__]}"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Utilities</label>
+                  <input type="text" class="form-control" id="hds_8" th:field="*{datamap[__hds_8__]}"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">3rd Party tools</label>
+                  <input type="text" class="form-control" id="hds_9" th:field="*{datamap[__hds_9__]}"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">OperatingSystem</label>
+                  <input type="text" class="form-control" id="hds_10" th:field="*{datamap[__hds_10__]}"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">User Interface</label>
+                  <input type="text" class="form-control" id="hds_11" th:field="*{datamap[__hds_11__]}"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Transaction processor</label>
+                  <input type="text" class="form-control" id="hds_12" th:field="*{datamap[__hds_12__]}"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">File system</label>
+                  <input type="text" class="form-control" id="hds_13" th:field="*{datamap[__hds_13__]}"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Database</label>
+                  <input type="text" class="form-control" id="hds_14" th:field="*{datamap[__hds_14__]}"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Application Server</label>
+                  <input type="text" class="form-control" id="hds_15" th:field="*{datamap[__hds_15__]}"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Clients</label>
+                  <input type="text" class="form-control" id="hds_16" th:field="*{datamap[__hds_16__]}"></input>
+               </div>
+            </div>
+            <div class="tab-pane fade" id="appHealth">
+               <div class="form-group">
+                  <label for="text">How many failures have occurred due to critical problems in the past 12 months?</label>
+                  <input type="text" class="form-control" id="app_health1" th:field="*{datamap[__app_health1__]}"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Please provide the average number of critical support / maintenance  tickets logged in a month</label>
+                  <input type="text" class="form-control" id="app_health2" th:field="*{datamap[__app_health2__]}"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Please provide the average number of production bugs reported in a month</label>
+                  <input type="text" class="form-control" id="app_health3" th:field="*{datamap[__app_health3__]}"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Please provide the average number of adhoc/unplanned requests received in a month</label>
+                  <input type="text" class="form-control" id="app_health4" th:field="*{datamap[__app_health4__]}"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">What was the number of planned releases / enhancements in the past 12 months?</label>
+                  <input type="text" class="form-control" id="appp_health5" th:field="*{datamap[__appp_health5__]}"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">Are the batch jobs scheduled?</label>
+                  <input type="text" class="form-control" id="app_health6" th:field="*{datamap[__app_health6__]}"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">What is the current batch processing window?</label>
+                  <input type="text" class="form-control" id="app_health7" th:field="*{datamap[__app_health7__]}"></input>
+               </div>
+               <div class="form-group">
+                  <label for="text">What is the maximum available (affordability) window for batch?</label>
+                  <input type="text" class="form-control" id="app_health8" th:field="*{datamap[__app_health8__]}"></input>
+               </div>
+            </div>
+         </div>
+         <input type="button" class="btn btn-default" value="Save"  onclick="javascript:submitForm(this)"></input>
+             <input type="button" class="btn btn-default" value="Submit" onclick="javascript:submitForm(this)"></input>
+      </form>
+   </body>
+</html>
