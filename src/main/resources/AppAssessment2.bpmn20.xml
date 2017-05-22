@@ -17,7 +17,7 @@
       <conditionExpression xsi:type="tFormalExpression">${status=="review"}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sequenceflow7" name="${approved}" sourceRef="gateway" targetRef="endevent">
-      <conditionExpression xsi:type="tFormalExpression">${status=="approved"}></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression">${status=="approved"}</conditionExpression>
     </sequenceFlow>
   </process>
  
