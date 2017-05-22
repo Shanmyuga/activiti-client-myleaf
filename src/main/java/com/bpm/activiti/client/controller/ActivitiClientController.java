@@ -54,7 +54,7 @@ public class ActivitiClientController {
 	@GetMapping("/home")
 	public String home(Model model,
 			@RequestParam(value = "name", required = false, defaultValue = "World") String name) {
-TaskResponse taskinfo = getTasksfortheuserGroup();
+        TaskResponse taskinfo = getTasksfortheuserGroup();
 		model.addAttribute("name", name);
 		model.addAttribute("tasklist",taskinfo.getData());
 		model.addAttribute("sidenavForm", "fragments/tasksidebar");
@@ -190,14 +190,19 @@ TaskResponse taskinfo = getTasksfortheuserGroup();
 		tvariable.setValue(mapAsJson);
 		tvariable.setScope("global");
 		tvariable.setType("string");
-		TaskProcessVariable tvariable2 = new TaskProcessVariable();
-		tvariable2.setName("status");
-		tvariable2.setValue(map.get("status"));
-		tvariable2.setScope("global");
-		tvariable2.setType("string");
+		 
+		
+		
 		  List<TaskProcessVariable> tvariables = new ArrayList<TaskProcessVariable>();
 		  tvariables.add(tvariable);
-		  tvariables.add(tvariable2);
+		  map.forEach((k,v)-> {
+			  TaskProcessVariable tvariable2 = new TaskProcessVariable();
+			  tvariable2.setName(k);
+			  tvariable2.setValue(v);
+			  tvariable2.setScope("global");
+				tvariable2.setType("string");
+				tvariables.add(tvariable2);
+		   });
 		  service.addUpdateVariablesToTask(map.get("taskId"), tvariables);
 		  if("Submit".equals(map.get("actiontag"))) {
 			  TaskComplete complete = new TaskComplete();
