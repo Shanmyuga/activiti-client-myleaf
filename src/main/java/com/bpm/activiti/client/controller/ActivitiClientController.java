@@ -75,6 +75,18 @@ public class ActivitiClientController {
 		return "hello";
 	}
 	
+	@GetMapping("/secure/viewContent")
+	public String viewContent(Model model) {
+		ProcessInstanceList deployinfo = service.getProcessLists();
+	
+		
+			model.addAttribute("viewForm", "fragments/viewContentForm");
+		
+		model.addAttribute("sidenavForm", "fragments/procsidebar");
+		model.addAttribute("proclist", deployinfo.getData());
+		return "hello";
+	}
+	
 	@GetMapping("/secure/startProcessInstance")
 	public String startProcessInstance(Model model,@RequestParam(value = "processDefinitionId", required = true) String processDefinitionId) {
 		ProcessInstanceList deployinfo = service.getProcessLists();

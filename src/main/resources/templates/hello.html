@@ -7,7 +7,13 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"></link>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> <!-- load jquery via CDN -->
  
-
+  <link rel="stylesheet" href="../jqwidgets/styles/jqx.base.css"  th:href="@{/js/jqwidgets/styles/jqx.base.css}" type="text/css" />
+  
+    <script type="text/javascript" src="/js/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="/js/jqwidgets/jqxbuttons.js"></script>
+    <script type="text/javascript" src="/js/jqwidgets/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="/js/jqwidgets/jqxpanel.js"></script>
+    <script type="text/javascript" src="/js/jqwidgets/jqxtree.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <style>
@@ -109,6 +115,17 @@
   
  }
 
+ $(document).ready(function () {
+     // Create jqxTree
+     $('#jqxTree').jqxTree({ height: '500px', width: '500px' });
+     
+     
+     $('#jqxTree').on('select', function (event) {
+    	    var args = event.args;
+    	    var item = $('#jqxTree').jqxTree('getItem', args.element);
+    	   
+    	});
+ });
  
  </script>
 </head>
