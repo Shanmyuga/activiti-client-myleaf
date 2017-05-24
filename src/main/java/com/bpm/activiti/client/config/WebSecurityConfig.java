@@ -29,8 +29,9 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.inMemoryAuthentication().withUser("customer").password("customer").roles("USER");
 		auth.inMemoryAuthentication().withUser("sk").password("sk").roles("SUPERVISOR");
-		auth.inMemoryAuthentication().withUser("shan").password("shan").roles("USER");
+		auth.inMemoryAuthentication().withUser("shan").password("shan").roles("USER","INTAKETEAM");
 		auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
+		auth.inMemoryAuthentication().withUser("raj").password("raj").roles("USER","REVIEWTEAM");
 	}	
 
 }

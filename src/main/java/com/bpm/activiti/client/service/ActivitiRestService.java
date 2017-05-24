@@ -58,6 +58,16 @@ public class ActivitiRestService {
 		return deployData.getBody().getFormKey();
 	}
 
+
+	public TaskProcessVariable[] getProcessInstanceVariables(String processInstanceId) {
+		HttpEntity<String> request = new HttpEntity<String>(httpHeader);
+		ResponseEntity<TaskProcessVariable[]> deployData = template.exchange(
+				baseURL + "runtime/process-instances/"+processInstanceId+"/variables", HttpMethod.GET, request,
+				TaskProcessVariable[].class);
+
+		return deployData.getBody();
+	}
+
 	public TaskProcessVariable getVariableExist(String taskId, String variableName) {
 
 		HttpEntity<String> request = new HttpEntity<String>(httpHeader);

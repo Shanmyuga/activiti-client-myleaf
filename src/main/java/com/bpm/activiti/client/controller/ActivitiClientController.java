@@ -1,10 +1,7 @@
 package com.bpm.activiti.client.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -96,7 +93,9 @@ public class ActivitiClientController {
 
 	@GetMapping("/startProcess")
 	public String startProcess(Model model,
-			@RequestParam(value = "taskid", required = true) String taskid) {
+			@RequestParam(value = "taskid", required = true) String taskid,
+							   @RequestParam(value = "processInstanceId", required = true) String processInstanceId
+							   ) {
 		
 		TaskResponse taskinfo = getTasksfortheuserGroup();
 			TaskDatum data =	service.getTaskDetails(taskid);
@@ -104,10 +103,12 @@ public class ActivitiClientController {
 		
 				TaskFormWrapper wrapper = new TaskFormWrapper();
 			
-			
+			    TaskProcessVariable[] variables = service.getProcessInstanceVariables(processInstanceId);
+
 				System.out.println(taskid);
 				TaskProcessVariable tvariable = service.getVariableExist(taskid, "TASK_PROCESS_DATA");
 				Map<String,String> map = null;
+
 				if(tvariable != null) {
 					ObjectMapper mapper = new ObjectMapper();
 					try {
@@ -120,7 +121,10 @@ public class ActivitiClientController {
 					map = new HashMap<String,String>();
 					map.put("taskId", taskid);
 				}
-				
+		for(TaskProcessVariable variable:variables) {
+			map.put(variable.getName(),variable.getValue());
+		}
+		map.put("taskId", taskid);
 				wrapper.setDatamap(map);
 				model.addAttribute("taskform",wrapper);
 				model.addAttribute("datamap",map);
