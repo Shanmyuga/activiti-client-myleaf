@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="LeaveRequest" name="LeaveRequest" isExecutable="true">
+    <startEvent id="start" activiti:initiator="initiator" activiti:formKey="StartLeaveRequeststartForm"></startEvent>
+    <userTask id="userTask1" name="Leave Request" activiti:assignee="${targetuser}" activiti:formKey="LeaveRequestForm">
+	
+	
+	</userTask>
+    <userTask id="userTask2" name="Review - LeaveRequest" activiti:candidateGroups="admin"  activiti:formKey="LeaveRequestFormReview"></userTask>
+    <exclusiveGateway id="gateway"></exclusiveGateway>
+    <sequenceFlow id="sequenceFlow1" sourceRef="start" targetRef="userTask1"></sequenceFlow>
+    <sequenceFlow id="sequenceFlow2" sourceRef="userTask1" targetRef="userTask2"></sequenceFlow>
+    <endEvent id="endevent"></endEvent>
+    <sequenceFlow id="sequenceflow6" sourceRef="userTask2" targetRef="gateway"></sequenceFlow>
+    <sequenceFlow id="sequenceflow3" name="${review}" sourceRef="gateway"  targetRef="userTask1">
+     
+      <conditionExpression xsi:type="tFormalExpression">${status=="review"}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sequenceflow7" name="${approved}" sourceRef="gateway" targetRef="endevent">
+      <conditionExpression xsi:type="tFormalExpression">${status=="approved"}</conditionExpression>
+    </sequenceFlow>
+  </process>
+ 
+</definitions>

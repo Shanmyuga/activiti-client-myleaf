@@ -4,15 +4,22 @@
   <meta charset="utf-8"></meta>
   <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"></link>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> <!-- load jquery via CDN -->
+ 
+
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <style>
     /* Remove the navbar's default margin-bottom and rounded borders */ 
     .navbar {
       margin-bottom: 0;
       border-radius: 0;
     }
-    
+    .form-group.required .control-label:after {
+  content:"*";
+  color:red;
+}
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
     .row.content {height: 450px}
     
@@ -38,7 +45,72 @@
       }
       .row.content {height:auto;} 
     }
+    
+    /* Tab Navigation */
+.nav-tabs {
+    margin: 0;
+    padding: 0;
+    border: 0;    
+}
+.nav-tabs > li > a {
+    background: #DADADA;
+    border-radius: 0;
+    box-shadow: inset 0 -8px 7px -9px rgba(0,0,0,.4),-2px -2px 5px -2px rgba(0,0,0,.4);
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover {
+    background: #F5F5F5;
+    box-shadow: inset 0 0 0 0 rgba(0,0,0,.4),-2px -3px 5px -2px rgba(0,0,0,.4);
+}
+
+/* Tab Content */
+.tab-pane {
+    background: #F5F5F5;
+    box-shadow: 0 0 4px rgba(0,0,0,.4);
+    border-radius: 0;
+  
+    padding: 10px;
+}
+
+.wrap .form-control {
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+        color: #555;
+        display: block;
+        font-size: 14px;
+        height: 34px;
+        line-height: 1.42857;
+        padding: 6px 12px;
+        /*width: 100%;*/
+}
+    
   </style>
+ 
+ <script type="text/javascript">
+ function submitForm (button)
+ {
+
+	
+	 var form = document.getElementById('submitForm');
+   if (button.value == "Save")
+   {
+	   
+	   document.getElementById('actiontag').value="Save";
+   }
+   else if (button.value == "Submit")
+   {
+	  
+	   document.getElementById('actiontag').value="Submit";
+   } 
+  
+  
+ }
+
+ 
+ </script>
 </head>
 <body>
 
@@ -46,12 +118,11 @@
 <div class="container-fluid text-center">    
   <div class="row content">
     <div class="col-sm-2 sidenav">
-    <h3>List of Process</h3>
-      <p  th:each="proc : ${proclist}">Start - <a th:href="@{startProcess(processDefinitionId=${proc.id})}" th:text="${proc.name}"></a></p>
+     <div th:replace="fragments/sidenavbar :: sidenavbar"></div>
      
     </div>
     <div class="col-sm-8 text-left"> 
-     <div th:replace="${viewForm} :: activitiForm"></div>
+     <div th:replace="fragments/centerform :: centerform"></div>
     </div>
     <div class="col-sm-2 sidenav">
      
