@@ -16,7 +16,7 @@ public class CutomTemplateResolver {
     @PostConstruct
     public void extension() {
         FileTemplateResolver resolver = new FileTemplateResolver();
-        resolver.setPrefix("E:\\");
+        resolver.setPrefix("d:\\");
         resolver.setSuffix(".html");
         resolver.setTemplateMode("HTML5");
         resolver.setOrder(templateEngine.getTemplateResolvers().size());

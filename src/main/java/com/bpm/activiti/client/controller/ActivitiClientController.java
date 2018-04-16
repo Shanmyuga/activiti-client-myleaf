@@ -12,11 +12,14 @@ import com.bpm.activiti.task.response.model.TaskResponse;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -51,7 +54,9 @@ public class ActivitiClientController {
                        @RequestParam(value = "name", required = false, defaultValue = "World") String name) {
         TaskResponse taskinfo = getTasksfortheuserGroup();
         model.addAttribute("name", name);
-        model.addAttribute("tasklist", taskinfo.getData());
+        if(taskinfo !=null) {
+            model.addAttribute("tasklist", taskinfo.getData());
+        }
         model.addAttribute("sidenavForm", "fragments/tasksidebar");
         model.addAttribute("viewForm", "fragments/blankform");
 
@@ -66,7 +71,9 @@ public class ActivitiClientController {
         model.addAttribute("viewForm", "fragments/blankform");
 
         model.addAttribute("sidenavForm", "fragments/procsidebar");
-        model.addAttribute("proclist", deployinfo.getData());
+        if(deployinfo != null) {
+            model.addAttribute("proclist", deployinfo.getData());
+        }
         return "hello";
     }
 
@@ -160,20 +167,7 @@ public class ActivitiClientController {
 
         StartProcessModel spmodel = new StartProcessModel();
         spmodel.setProcessDefinitionId(map.get("processDefinitionId"));
-        List<AttachMentModel> amodels = afiles.stream().map(afile -> {
-            AttachMentModel amodel = new AttachMentModel();
-            amodel.setFileType(afile.getContentType());
-            amodel.setFileName(afile.getName());
-            amodel.setProcessInstanceId(map.get("processDefinitionId"));
-            try {
-                amodel.setFiledata(Base64.getEncoder().encodeToString(afile.getBytes()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return amodel;
 
-        }).collect(Collectors.toList());
-        String fileattachmentjson = new ObjectMapper().writeValueAsString(amodels);
 
         map.forEach((k, v) -> {
             Variable var = new Variable();
@@ -181,12 +175,27 @@ public class ActivitiClientController {
             var.setValue(v);
             spmodel.getVariables().add(var);
         });
+        if(form.getImages() != null) {
+            List<AttachMentModel> amodels = afiles.stream().map(afile -> {
+                AttachMentModel amodel = new AttachMentModel();
+                amodel.setFileType(afile.getContentType());
+                amodel.setFileName(afile.getName());
+                amodel.setProcessInstanceId(map.get("processDefinitionId"));
+                try {
+                    amodel.setFiledata(Base64.getEncoder().encodeToString(afile.getBytes()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return amodel;
 
-        Variable var = new Variable();
-        var.setName("attachments");
-        var.setValue(fileattachmentjson);
-        spmodel.getVariables().add(var);
+            }).collect(Collectors.toList());
 
+            String fileattachmentjson = new ObjectMapper().writeValueAsString(amodels);
+            Variable var = new Variable();
+            var.setName("attachments");
+            var.setValue(fileattachmentjson);
+            spmodel.getVariables().add(var);
+        }
         model.addAttribute("viewForm", "fragments/processstart_success");
 
 
@@ -257,13 +266,26 @@ public class ActivitiClientController {
 
     public TaskResponse getTasksfortheuserGroup() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        String role = SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().findFirst().get().getAuthority();
+        Set<String> roles = AuthorityUtils.authorityListToSet(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+
         TaskResponse taskinfo = service.getTasksForaUser(username);
 
-        TaskResponse groupTasks = service.getTasksForaGroup(role.toLowerCase().substring(5));
-        System.out.println(taskinfo.getSize());
-        taskinfo.getData().addAll(groupTasks.getData());
+      for(String role : roles) {
+          TaskResponse groupTasks = service.getTasksForaGroup(role.toLowerCase().substring(5));
+          if (taskinfo != null) {
+              taskinfo.getData().addAll(groupTasks.getData());
+          } else {
+
+          }
+      }
         return taskinfo;
+    }
+    @RequestMapping(value="/secure/popup", method=RequestMethod.GET)
+    public ModelAndView getPopupWindowModal(Model model, @RequestParam( value="popupName") String popupName) {
+        ModelAndView mav = new ModelAndView("fragments/AssociatePopupModalForm");
+        mav.addObject("associateID","111651");
+        mav.addObject("associateName","shanmuga");
+        return mav;
     }
 
     @RequestMapping(value="/secure/download", method=RequestMethod.GET)

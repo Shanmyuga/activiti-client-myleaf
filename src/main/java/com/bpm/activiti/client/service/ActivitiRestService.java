@@ -1,5 +1,6 @@
 package com.bpm.activiti.client.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,10 +92,29 @@ public class ActivitiRestService {
 
 	public void addUpdateVariablesToTask(String taskId, List<TaskProcessVariable> variables) {
 
-		HttpEntity request = new HttpEntity(variables, httpHeader);
+		for(TaskProcessVariable taskprocess: variables) {
+			TaskProcessVariable variable = getVariableExist(taskId,taskprocess.getName());
+			if (variable != null) {
+				variable.setValue(taskprocess.getValue());
+				HttpEntity request = new HttpEntity(variable, httpHeader);
 
-		ResponseEntity<String> deployData = template.exchange(baseURL + "runtime/tasks/" + taskId + "/variables",
-				HttpMethod.PUT, request, String.class);
+				ResponseEntity<String> deployData = template.exchange(baseURL + "runtime/tasks/" + taskId + "/variables/"+variable.getName(),
+						HttpMethod.PUT, request, String.class);
+
+				System.out.println("variable updated " + taskprocess.getName() + "  "+  taskprocess.getValue());
+			}
+			else {
+				List<TaskProcessVariable> templist = new ArrayList<TaskProcessVariable>();
+				templist.add(taskprocess);
+				HttpEntity request = new HttpEntity(templist, httpHeader);
+
+				ResponseEntity<String> deployData = template.exchange(baseURL + "runtime/tasks/" + taskId + "/variables",
+						HttpMethod.POST, request, String.class);
+			}
+
+			System.out.println("variable added " + taskprocess.getName() + "  "+  taskprocess.getValue());
+		}
+
 
 	}
 	
@@ -132,7 +152,7 @@ public class ActivitiRestService {
 
 		HttpEntity request = new HttpEntity(httpHeader);
 
-		ResponseEntity<TaskResponse> deployData = template.exchange(baseURL + "runtime/tasks?candidateGroup=" + groupId,
+		ResponseEntity<TaskResponse> deployData = template.exchange(baseURL + "runtime/tasks?candidateGroup=GROUP_" + groupId,
 				HttpMethod.GET, request, TaskResponse.class);
 
 		return deployData.getBody();
